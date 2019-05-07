@@ -30,6 +30,6 @@ public class ParkingLot {
 
     public Car fetchCar(Ticket ticket) {
         this.carportQuantity++;
-        return this.cars.stream().filter(car-> car.getId() == ticket.getCarId()).findFirst().get();
+        return this.cars.stream().filter(car -> car.getId() == ticket.getCarId()).findFirst().orElseThrow(TicketCanNotMatchCarException::new);
     }
 }
