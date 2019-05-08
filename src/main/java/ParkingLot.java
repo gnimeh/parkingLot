@@ -5,16 +5,9 @@ public class ParkingLot {
     private int carportQuantity;
     private List<Car> cars;
 
-    public ParkingLot() {
+    public ParkingLot(int carportQuantity) {
         cars = new ArrayList<>();
-    }
-
-    public void setCarportQuantity(int carportQuantity) {
         this.carportQuantity = carportQuantity;
-    }
-
-    public int getCarportQuantity() {
-        return carportQuantity;
     }
 
     public Ticket parkCar(Car car) {
@@ -23,13 +16,13 @@ public class ParkingLot {
         }
         this.carportQuantity--;
         Ticket ticket = new Ticket();
-        ticket.setCarId(car.getId());
+        ticket.setCar(car);
         this.cars.add(car);
         return ticket;
     }
 
     public Car fetchCar(Ticket ticket) {
         this.carportQuantity++;
-        return this.cars.stream().filter(car -> car.getId() == ticket.getCarId()).findFirst().orElseThrow(TicketCanNotMatchCarException::new);
+        return this.cars.stream().filter(car -> car.equals(ticket.getCar())).findFirst().orElseThrow(TicketCanNotMatchCarException::new);
     }
 }

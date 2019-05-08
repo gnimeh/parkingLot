@@ -1,11 +1,11 @@
 public class Ticket {
-    private long carId;
+    private Car car;
 
-    public long getCarId() {
-        return carId;
+    public Car getCar() {
+        return this.car;
     }
 
-    public void setCarId(long carId) {
-        this.carId = carId;
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
