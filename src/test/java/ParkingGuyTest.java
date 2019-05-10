@@ -26,9 +26,8 @@ public class ParkingGuyTest {
 
         Ticket ticket = parkingGuy.parkCar(car);
 
-        Car fetchedCar = firstParkingLot.fetchCar(ticket);
         assertNotNull(ticket);
-        assertEquals(car, fetchedCar);
+        assertEquals(car, firstParkingLot.fetchCar(ticket));
     }
 
     @Test
@@ -44,21 +43,19 @@ public class ParkingGuyTest {
 
         Ticket ticket = parkingGuy.parkCar(car);
 
-        Car fetchedCar = secondParkingLot.fetchCar(ticket);
         assertNotNull(ticket);
-        assertEquals(car, fetchedCar);
+        assertEquals(car, secondParkingLot.fetchCar(ticket));
     }
 
     @Test(expected = NoParkingLotCarportException.class)
     public void should_not_park_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_they_are_full() {
-        ParkingLot firstParkingLot = new ParkingLot(0);
-        final ParkingLot secondParkingLot = new ParkingLot(0);
         List<ParkingLot> parkingLots = Arrays.asList(
-                firstParkingLot,
-                secondParkingLot
+                new ParkingLot(0),
+                new ParkingLot(0)
         );
         ParkingGuy parkingGuy = new ParkingGuy(parkingLots);
         Car car = new Car();
+
         parkingGuy.parkCar(car);
     }
 
@@ -73,9 +70,7 @@ public class ParkingGuyTest {
         Car car = new Car();
         Ticket ticket = firstParkingLot.parkCar(car);
 
-        Car fetchedCar = parkingGuy.fetchCar(ticket);
-
-        assertEquals(car, fetchedCar);
+        assertEquals(car, parkingGuy.fetchCar(ticket));
     }
 
 
