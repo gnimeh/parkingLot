@@ -30,6 +30,6 @@ public class ParkingGuy {
             } catch (TicketCanNotMatchCarException ignored) {
             }
         }
-        return null;
+        throw new TicketCanNotMatchCarException();
     }
 }

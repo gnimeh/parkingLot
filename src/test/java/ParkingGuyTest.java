@@ -1,4 +1,5 @@
 import exception.NoParkingLotCarportException;
+import exception.TicketCanNotMatchCarException;
 import model.Car;
 import model.ParkingGuy;
 import model.ParkingLot;
@@ -62,7 +63,7 @@ public class ParkingGuyTest {
     }
 
     @Test
-    public void should_fetch_original_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_the_car_parked_in_first_parking_lot_and_a_ticket_can_fetch_a_car() {
+    public void should_fetch_original_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_the_car_parked_in_first_parking_lot_and_a_ticket_can_match_a_car() {
         ParkingLot firstParkingLot = new ParkingLot(10);
         List<ParkingLot> parkingLots = Arrays.asList(
                 firstParkingLot,
@@ -79,7 +80,7 @@ public class ParkingGuyTest {
 
 
     @Test
-    public void should_fetch_original_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_the_car_parked_in_second_parking_lot_and_a_ticket_can_fetch_a_car() {
+    public void should_fetch_original_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_the_car_parked_in_second_parking_lot_and_a_ticket_can_match_a_car() {
         ParkingLot secondParkingLot = new ParkingLot(10);
         List<ParkingLot> parkingLots = Arrays.asList(
                 new ParkingLot(10),
@@ -92,5 +93,17 @@ public class ParkingGuyTest {
         Car fetchedCar = parkingGuy.fetchCar(ticket);
 
         assertEquals(car, fetchedCar);
+    }
+
+    @Test(expected = TicketCanNotMatchCarException.class)
+    public void should_not_fetch_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_a_ticket_can_not_match_a_car() {
+        List<ParkingLot> parkingLots = Arrays.asList(
+                new ParkingLot(10),
+                new ParkingLot(10)
+        );
+        ParkingGuy parkingGuy = new ParkingGuy(parkingLots);
+        Ticket ticket = new Ticket();
+
+        parkingGuy.fetchCar(ticket);
     }
 }
