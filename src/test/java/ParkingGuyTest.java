@@ -106,4 +106,16 @@ public class ParkingGuyTest {
 
         parkingGuy.fetchCar(ticket);
     }
+
+    @Test(expected = TicketCanNotMatchCarException.class)
+    public void should_not_fetch_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_a_ticket_has_been_used_to_fetch_car() {
+        List<ParkingLot> parkingLots = Arrays.asList(
+                new ParkingLot(10),
+                new ParkingLot(10)
+        );
+        ParkingGuy parkingGuy = new ParkingGuy(parkingLots);
+        Ticket ticket = new Ticket();
+
+        parkingGuy.fetchCar(ticket);
+    }
 }
