@@ -77,4 +77,20 @@ public class ParkingGuyTest {
         assertEquals(car, fetchedCar);
     }
 
+
+    @Test
+    public void should_fetch_original_car_given_a_parking_guy_is_responsible_for_2_parking_lots_and_the_car_parked_in_second_parking_lot_and_a_ticket_can_fetch_a_car() {
+        ParkingLot secondParkingLot = new ParkingLot(10);
+        List<ParkingLot> parkingLots = Arrays.asList(
+                new ParkingLot(10),
+                secondParkingLot
+        );
+        ParkingGuy parkingGuy = new ParkingGuy(parkingLots);
+        Car car = new Car();
+        Ticket ticket = secondParkingLot.parkCar(car);
+
+        Car fetchedCar = parkingGuy.fetchCar(ticket);
+
+        assertEquals(car, fetchedCar);
+    }
 }

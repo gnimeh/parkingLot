@@ -1,6 +1,7 @@
 package model;
 
 import exception.NoParkingLotCarportException;
+import exception.TicketCanNotMatchCarException;
 
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class ParkingGuy {
     }
 
     public Car fetchCar(Ticket ticket) {
-            return parkingLots.get(0).fetchCar(ticket);
+        for (ParkingLot parkingLot : this.parkingLots) {
+            try {
+                return parkingLot.fetchCar(ticket);
+            } catch (TicketCanNotMatchCarException ignored) {
+            }
+        }
+        return null;
     }
 }
