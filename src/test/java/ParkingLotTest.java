@@ -1,3 +1,8 @@
+import exception.NoParkingLotCarportException;
+import exception.TicketCanNotMatchCarException;
+import model.Car;
+import model.ParkingLot;
+import model.Ticket;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

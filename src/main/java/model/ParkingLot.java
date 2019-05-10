@@ -1,3 +1,8 @@
+package model;
+
+import exception.NoParkingLotCarportException;
+import exception.TicketCanNotMatchCarException;
+
 import java.util.ArrayList;
 import java.util.List;
 
