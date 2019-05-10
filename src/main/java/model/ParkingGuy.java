@@ -13,13 +13,16 @@ public class ParkingGuy {
     }
 
     public Ticket parkCar(Car car) {
-        Ticket ticket = null;
-        for (ParkingLot parkingLot: this.parkingLots) {
+        for (ParkingLot parkingLot : this.parkingLots) {
             try {
-                ticket = parkingLot.parkCar(car);
+                return parkingLot.parkCar(car);
             } catch (NoParkingLotCarportException ignored) {
             }
         }
-        return ticket;
+        throw new NoParkingLotCarportException();
+    }
+
+    public Car fetchCar(Ticket ticket) {
+            return parkingLots.get(0).fetchCar(ticket);
     }
 }
