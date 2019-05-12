@@ -30,4 +30,8 @@ public class ParkingLot {
         this.carportQuantity++;
         return this.cars.stream().filter(car -> car.equals(ticket.getCar())).findFirst().orElseThrow(TicketCanNotMatchCarException::new);
     }
+
+    public int getEmptyCarportQuantity() {
+        return carportQuantity;
+    }
 }
