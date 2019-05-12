@@ -13,7 +13,7 @@ public class SmartParkingBoy {
 
     public Ticket parkCar(Car car) {
 
-        if (parkingLots.get(0).getEmptyCarportQuantity() > parkingLots.get(1).getEmptyCarportQuantity()) {
+        if (parkingLots.get(0).getEmptyCarportQuantity() >= parkingLots.get(1).getEmptyCarportQuantity()) {
             return parkingLots.get(0).parkCar(car);
         } else {
             return parkingLots.get(1).parkCar(car);

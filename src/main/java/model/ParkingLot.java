@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLot {
-    private int carportQuantity;
+    private int emptyCarportQuantity;
     private List<Car> cars;
 
-    public ParkingLot(int carportQuantity) {
+    public ParkingLot(int emptyCarportQuantity) {
         cars = new ArrayList<>();
-        this.carportQuantity = carportQuantity;
+        this.emptyCarportQuantity = emptyCarportQuantity;
     }
 
     public Ticket parkCar(Car car) {
-        if (this.carportQuantity == 0) {
+        if (this.emptyCarportQuantity == 0) {
             throw new NoParkingLotCarportException();
         }
-        this.carportQuantity--;
+        this.emptyCarportQuantity--;
         Ticket ticket = new Ticket();
         ticket.setCar(car);
         this.cars.add(car);
@@ -27,11 +27,11 @@ public class ParkingLot {
     }
 
     public Car fetchCar(Ticket ticket) {
-        this.carportQuantity++;
+        this.emptyCarportQuantity++;
         return this.cars.stream().filter(car -> car.equals(ticket.getCar())).findFirst().orElseThrow(TicketCanNotMatchCarException::new);
     }
 
     public int getEmptyCarportQuantity() {
-        return carportQuantity;
+        return emptyCarportQuantity;
     }
 }
