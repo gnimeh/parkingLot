@@ -1,3 +1,4 @@
+import exception.NoParkingLotCarportException;
 import model.Car;
 import model.ParkingLot;
 import model.SmartParkingBoy;
@@ -51,6 +52,17 @@ public class SmartParkingBoyTest {
         assertNotNull(ticket);
         Car fetchedCar = firstParkingLot.fetchCar(ticket);
         assertEquals(car, fetchedCar);
+    }
+
+
+    @Test(expected = NoParkingLotCarportException.class)
+    public void should_not_park_car_given_a_smart_parking_boy_and_two_full_parking_lots_and_when_smart_parking_boy_parking_car() {
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(
+                new ParkingLot(0),
+                new ParkingLot(0)));
+        Car car = new Car();
+
+        smartParkingBoy.parkCar(car);
     }
 
 }
