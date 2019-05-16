@@ -12,11 +12,13 @@ public class SmartParkingBoy {
     }
 
     public Ticket parkCar(Car car) {
-
-        if (parkingLots.get(0).getEmptyCarportQuantity() >= parkingLots.get(1).getEmptyCarportQuantity()) {
-            return parkingLots.get(0).parkCar(car);
-        } else {
-            return parkingLots.get(1).parkCar(car);
-        }
+        ParkingLot parkingLotWithMaxEmptyCarport = parkingLots.stream().reduce(new ParkingLot(0), (maxCarportQuantityParkingLot, current) -> {
+            if (maxCarportQuantityParkingLot.getEmptyCarportQuantity() >= current.getEmptyCarportQuantity()) {
+                return maxCarportQuantityParkingLot;
+            } else {
+                return current;
+            }
+        });
+        return parkingLotWithMaxEmptyCarport.parkCar(car);
     }
 }
