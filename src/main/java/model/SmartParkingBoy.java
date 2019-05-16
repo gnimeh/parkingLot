@@ -1,18 +1,13 @@
 package model;
 
-import exception.TicketCanNotMatchCarException;
-
 import java.util.List;
 
-public class SmartParkingBoy {
-    private List<ParkingLot> parkingLots;
-
+public class SmartParkingBoy extends ParkingBoy {
     public SmartParkingBoy(List<ParkingLot> parkingLots) {
-
-
-        this.parkingLots = parkingLots;
+        super(parkingLots);
     }
 
+    @Override
     public Ticket parkCar(Car car) {
         ParkingLot parkingLotWithMaxEmptyCarport = parkingLots.stream().reduce(new ParkingLot(0), (maxCarportQuantityParkingLot, current) -> {
             if (maxCarportQuantityParkingLot.getEmptyCarportQuantity() >= current.getEmptyCarportQuantity()) {
@@ -22,15 +17,5 @@ public class SmartParkingBoy {
             }
         });
         return parkingLotWithMaxEmptyCarport.parkCar(car);
-    }
-
-    public Car fetchCar(Ticket ticket) {
-        for (ParkingLot parkingLot : this.parkingLots) {
-            try {
-                return parkingLot.fetchCar(ticket);
-            } catch (TicketCanNotMatchCarException ignored) {
-            }
-        }
-        throw new TicketCanNotMatchCarException();
     }
 }
