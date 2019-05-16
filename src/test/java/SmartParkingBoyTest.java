@@ -1,5 +1,6 @@
 import exception.NoParkingLotCarportException;
 import model.Car;
+import model.ParkingGuy;
 import model.ParkingLot;
 import model.SmartParkingBoy;
 import model.Ticket;
@@ -66,4 +67,17 @@ public class SmartParkingBoyTest {
         smartParkingBoy.parkCar(car);
     }
 
+    @Test
+    public void should_fetch_original_car_given_a_smart_parking_boy_is_responsible_for_2_parking_lots_and_the_car_parked_in_first_parking_lot_and_a_ticket_can_match_a_car() {
+        ParkingLot firstParkingLot = new ParkingLot(10);
+        List<ParkingLot> parkingLots = Arrays.asList(
+                firstParkingLot,
+                new ParkingLot(10)
+        );
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car();
+        Ticket ticket = firstParkingLot.parkCar(car);
+
+        assertEquals(car, smartParkingBoy.fetchCar(ticket));
+    }
 }
