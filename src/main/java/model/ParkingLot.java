@@ -3,15 +3,15 @@ package model;
 import exception.NoParkingLotCarportException;
 import exception.TicketCanNotMatchCarException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParkingLot {
     private int emptyCarportQuantity;
-    private List<Car> cars;
+    private Map<Ticket, Car> carMap;
 
     public ParkingLot(int emptyCarportQuantity) {
-        cars = new ArrayList<>();
+        this.carMap = new HashMap<>();
         this.emptyCarportQuantity = emptyCarportQuantity;
     }
 
@@ -21,14 +21,18 @@ public class ParkingLot {
         }
         this.emptyCarportQuantity--;
         Ticket ticket = new Ticket();
-        ticket.setCar(car);
-        this.cars.add(car);
+        this.carMap.put(ticket, car);
         return ticket;
     }
 
     public Car fetchCar(Ticket ticket) {
         this.emptyCarportQuantity++;
-        return this.cars.stream().filter(car -> car.equals(ticket.getCar())).findFirst().orElseThrow(TicketCanNotMatchCarException::new);
+        if (!carMap.containsKey(ticket)) {
+            throw new TicketCanNotMatchCarException();
+        }
+        Car car = this.carMap.get(ticket);
+        this.carMap.remove(ticket);
+        return car;
     }
 
     public int getEmptyCarportQuantity() {
